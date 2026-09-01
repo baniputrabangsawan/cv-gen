@@ -14,6 +14,7 @@ const densityMap = { compact: 0.82, normal: 1, loose: 1.18 } as const;
 const normalizeUrl = (url: string) => !url ? "" : /^https?:\/\//i.test(url) ? url : `https://${url}`;
 const A4_WIDTH = 595.28;
 const A4_HEIGHT = 841.89;
+const pdfFont = (font: CVDocument["design"]["fontFamily"]) => font === "Times New Roman" ? "Times-Roman" : font === "Arial" ? "Helvetica" : font;
 
 function textUnits(value: string) {
   return Math.max(1, Math.ceil(value.length / 85) + value.split("\n").length - 1);
@@ -43,8 +44,10 @@ function previewPageHeight(cv: CVDocument) {
 export function CVPdfDocument({ document: cv, locale = "id", preview = false }: { document: CVDocument; locale?: Locale; preview?: boolean }) {
   const { content, design, templateId } = cv;
   const density = densityMap[design.density];
-  const base = 9.2 * design.fontScale / 100;
-  const isSerif = templateId === "academic" || design.fontFamily === "Times-Roman";
+  const base = design.bodySize * design.fontScale / 100;
+  const titleSize = design.titleSize * design.fontScale / 100;
+  const fontFamily = pdfFont(design.fontFamily);
+  const isSerif = fontFamily === "Times-Roman";
   const ink = design.textColor;
   const muted = ink;
   const accent = templateId === "ats" || templateId === "minimal" || templateId === "academic" ? ink : design.accentColor;
@@ -55,7 +58,7 @@ export function CVPdfDocument({ document: cv, locale = "id", preview = false }: 
 
   const styles = StyleSheet.create({
     page: {
-      backgroundColor: "#ffffff", color: ink, fontFamily: isSerif ? "Times-Roman" : design.fontFamily,
+      backgroundColor: "#ffffff", color: ink, fontFamily: isSerif ? "Times-Roman" : fontFamily,
       fontSize: base, lineHeight: 1.42, paddingTop: design.marginPreset * 2.835,
       paddingBottom: design.marginPreset * 2.835, paddingHorizontal: design.marginPreset * 2.835,
     },
@@ -74,7 +77,7 @@ export function CVPdfDocument({ document: cv, locale = "id", preview = false }: 
     },
     headerCopy: { flexGrow: 1, paddingRight: showPhoto ? 16 : 0 },
     name: {
-      fontSize: base * (templateId === "minimal" ? 3.1 : 2.65), fontWeight: "bold", lineHeight: 1.05,
+      fontSize: titleSize, fontWeight: "bold", lineHeight: 1.05,
       letterSpacing: templateId === "ats" ? 0 : -0.3, marginBottom: 5,
     },
     role: { fontSize: base * 1.18, color: headerDark ? headerInk : accent, marginBottom: 8, fontWeight: "bold" },
