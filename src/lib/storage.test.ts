@@ -9,6 +9,9 @@ describe("CVKita document model", () => {
     expect(first.schemaVersion).toBe(2);
     expect(first.id).not.toBe(second.id);
     expect(first.sectionOrder).toHaveLength(9);
+    expect(first.design.fontFamily).toBe("Helvetica");
+    expect(first.design.titleSize).toBe(15);
+    expect(first.design.bodySize).toBe(12);
   });
 
   it("creates a useful first-run sample", () => {
@@ -28,6 +31,8 @@ describe("backup validation", () => {
     expect(backup.documents[0].id).toBe(documents[0].id);
     expect(backup.documents[0].design.textColor).toBe("#182321");
     expect(backup.documents[0].design.borderColor).toBe("#dfe5e2");
+    expect(backup.documents[0].design.titleSize).toBe(15);
+    expect(backup.documents[0].design.bodySize).toBe(12);
   });
 
   it("normalizes spaced E.164 phone numbers from imports", () => {

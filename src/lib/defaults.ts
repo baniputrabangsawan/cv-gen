@@ -11,7 +11,7 @@ export const DEFAULT_SECTION_TITLES: Record<SectionId, string> = {
 
 export const DEFAULT_DESIGN: CVDocument["design"] = {
   accentColor: "#0f766e", textColor: "#182321", borderColor: "#dfe5e2",
-  fontFamily: "Helvetica", fontScale: 100, marginPreset: 16, density: "normal", showPhoto: true,
+  fontFamily: "Helvetica", fontScale: 100, titleSize: 15, bodySize: 12, marginPreset: 16, density: "normal", showPhoto: true,
 };
 
 const uid = () => crypto.randomUUID();

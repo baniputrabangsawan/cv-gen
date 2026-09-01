@@ -15,7 +15,7 @@ export type TemplateId = "ats" | "professional" | "modern" | "minimal" | "creati
 export type Locale = "id" | "en";
 export type Density = "compact" | "normal" | "loose";
 export type MarginPreset = 12 | 16 | 20;
-export type FontFamily = "Helvetica" | "Times-Roman" | "Courier";
+export type FontFamily = "Helvetica" | "Arial" | "Times-Roman" | "Times New Roman" | "Courier";
 
 export interface PersonalInfo {
   fullName: string;
@@ -75,6 +75,8 @@ export interface DesignSettings {
   borderColor: string;
   fontFamily: FontFamily;
   fontScale: number;
+  titleSize: 14 | 15 | 16;
+  bodySize: 12;
   marginPreset: MarginPreset;
   density: Density;
   showPhoto: boolean;

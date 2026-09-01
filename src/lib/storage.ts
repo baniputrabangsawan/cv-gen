@@ -9,6 +9,13 @@ function normalizePhone(value: string) {
   return value.startsWith("+") ? `+${value.slice(1).replace(/\D/g, "")}` : value;
 }
 
+function normalizeDesign(design: Partial<CVDocument["design"]> | undefined): CVDocument["design"] {
+  const next = { ...DEFAULT_DESIGN, ...design };
+  if (next.fontFamily === "Arial") next.fontFamily = "Helvetica";
+  if (next.fontFamily === "Times New Roman") next.fontFamily = "Times-Roman";
+  return next;
+}
+
 function openDb(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
     let settled = false;
@@ -69,7 +76,7 @@ export function migrateDocument(input: unknown): CVDocument {
     const document = source as unknown as CVDocument;
     return {
       ...document,
-      design: { ...DEFAULT_DESIGN, ...document.design },
+      design: normalizeDesign(document.design),
       sectionOrder: [...document.sectionOrder, ...DEFAULT_SECTION_ORDER.filter((id) => !document.sectionOrder.includes(id))],
       hiddenSections: document.hiddenSections ?? [],
       sectionTitles: { ...DEFAULT_SECTION_TITLES, ...document.sectionTitles },
@@ -83,7 +90,7 @@ export function migrateDocument(input: unknown): CVDocument {
   return {
     ...(source as unknown as CVDocument),
     schemaVersion: 2,
-    design: { ...DEFAULT_DESIGN, ...(source.design as Partial<CVDocument["design"]> | undefined) },
+    design: normalizeDesign(source.design as Partial<CVDocument["design"]> | undefined),
     sectionOrder: [...sectionOrder, ...DEFAULT_SECTION_ORDER.filter((id) => !sectionOrder.includes(id))],
     hiddenSections: Array.isArray(source.hiddenSections) ? source.hiddenSections as CVDocument["hiddenSections"] : [],
     sectionTitles: { ...DEFAULT_SECTION_TITLES },
