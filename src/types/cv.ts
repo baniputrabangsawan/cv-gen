@@ -11,7 +11,7 @@ export const SECTION_IDS = [
 ] as const;
 
 export type SectionId = (typeof SECTION_IDS)[number];
-export type TemplateId = "ats" | "professional" | "modern" | "minimal" | "creative" | "academic";
+export type TemplateId = "ats" | "professional" | "modern" | "minimal" | "creative" | "academic" | "glints-english" | "glints-fresh" | "glints-ats";
 export type Locale = "id" | "en";
 export type Density = "compact" | "normal" | "loose";
 export type MarginPreset = 12 | 16 | 20;
