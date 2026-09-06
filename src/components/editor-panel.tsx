@@ -15,6 +15,7 @@ type Props = { document: CVDocument; locale: Locale; mode: "content" | "design";
 export const templates: { id: TemplateId; name: string }[] = [
   { id: "ats", name: "ATS" }, { id: "professional", name: "Profesional" }, { id: "modern", name: "Modern" },
   { id: "minimal", name: "Minimal" }, { id: "creative", name: "Kreatif" }, { id: "academic", name: "Akademik" },
+  { id: "glints-english", name: "Glints EN" }, { id: "glints-fresh", name: "Glints Fresh" }, { id: "glints-ats", name: "Glints ATS" },
 ];
 
 function Field({ label, value, onChange, type = "text", placeholder, textarea, wide }: { label: string; value: string; onChange: (value: string) => void; type?: string; placeholder?: string; textarea?: boolean; wide?: boolean }) {

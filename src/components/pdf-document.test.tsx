@@ -4,7 +4,7 @@ import { createSampleDocument } from "@/lib/defaults";
 import type { TemplateId } from "@/types/cv";
 import { CVPdfDocument } from "./pdf-document";
 
-const templates: TemplateId[] = ["ats", "professional", "modern", "minimal", "creative", "academic"];
+const templates: TemplateId[] = ["ats", "professional", "modern", "minimal", "creative", "academic", "glints-english", "glints-fresh", "glints-ats"];
 
 describe("CV PDF templates", () => {
   for (const templateId of templates) {
